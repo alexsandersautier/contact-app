@@ -1,0 +1,8 @@
+You need create a .env file to configure a database config.
+
+Example:
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASS=1234
+DB_NAME=alfasoft
