@@ -5,35 +5,53 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('@/pages/HomePage.vue')
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/pages/LoginPage.vue')
-    },
-    {
-      path: '/details/:id',
-      name: 'details',
+      component: () => import('@/layouts/LoginLayout.vue'),
       meta: {
-        requiresAuth: true,
+        requiresAuth: false
       },
-      component: () => import('@/pages/DetailsPage.vue')
+      children: [
+        {
+          path: '/login',
+          name: 'login',
+          component: () => import('@/pages/LoginPage.vue')
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: () => import('@/pages/RegisterPage.vue')
+        }
+      ]
     },
     {
-      path: '/new',
-      name: 'new',
+      path: '/',
+      component: () => import('@/layouts/DefaultLayout.vue'),
       meta: {
-        requiresAuth: true,
+        requiresAuth: false
       },
-      component: () => import('@/pages/NewContactPage.vue')
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('@/pages/HomePage.vue')
+        },
+        {
+          path: '/details/:id',
+          name: 'details',
+          meta: {
+            requiresAuth: true,
+          },
+          component: () => import('@/pages/DetailsPage.vue')
+        },
+        {
+          path: '/new',
+          name: 'new',
+          meta: {
+            requiresAuth: true,
+          },
+          component: () => import('@/pages/NewContactPage.vue')
+        },
+      ]
     },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/pages/RegisterPage.vue')
-    }
   ],
 })
 

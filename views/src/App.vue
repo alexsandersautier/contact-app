@@ -10,10 +10,6 @@ const type = ref('')
 
 <template>
   <div class="w-dvw h-dvh flex flex-col">
-    <header class="shrink-0">
-      <HeaderComponent />
-    </header>
-
     <main class="flex-1 w-full overflow-auto">
       <RouterView />
       <ToastComponent v-model:show="show" :type="type" :message="message" />
