@@ -23,16 +23,16 @@ const router = createRouter({
       ]
     },
     {
-      path: '/',
+      path: '',
       component: () => import('@/layouts/DefaultLayout.vue'),
-      meta: {
-        requiresAuth: false
-      },
       children: [
         {
           path: '',
           name: 'home',
-          component: () => import('@/pages/HomePage.vue')
+          component: () => import('@/pages/HomePage.vue'),
+          meta: {
+            requiresAuth: false
+          },
         },
         {
           path: '/details/:id',
