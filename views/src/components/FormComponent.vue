@@ -64,8 +64,6 @@ onMounted(async () => {
   } else {
     editing.value = false
   }
-
-  console.log(formData.value)
 })
 </script>
 
