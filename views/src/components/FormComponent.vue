@@ -79,7 +79,7 @@ onMounted(async () => {
         <input v-model="formData.name" type="text" placeholder="Name" class="input input-bordered w-full" required />
 
         <input v-model="formData.email" type="email" placeholder="Email" class="input input-bordered w-full" required />
-        <figure class="h-48 w-full overflow-hidden" v-if="formData.picture">
+        <figure class="h-48 w-full overflow-hidden" v-if="editing">
           <img :src="`data:image/png;base64,${formData.picture}`" :alt="name" class="h-full w-full object-cover" />
         </figure>
         <input type="file" accept="image/*" @change="handleFile" class="file-input file-input-bordered w-full" />
