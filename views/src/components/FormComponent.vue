@@ -73,10 +73,11 @@ onMounted(async () => {
     <div class="max-w-md mx-auto p-4 rounded shadow">
       <form @submit.prevent="handleSubmit" class="flex flex-col gap-3">
 
+        <input v-model="formData.name" minlength="5" type="text" placeholder="Name" class="input input-bordered w-full" required />
+        
         <input v-model="formData.contact" type="text" placeholder="Phone (9 digits)" maxlength="9" pattern="\d{9}"
           inputmode="numeric" class="input input-bordered w-full" required />
 
-        <input v-model="formData.name" type="text" placeholder="Name" class="input input-bordered w-full" required />
 
         <input v-model="formData.email" type="email" placeholder="Email" class="input input-bordered w-full" required />
         <figure class="h-48 w-full overflow-hidden" v-if="editing">
