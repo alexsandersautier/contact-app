@@ -8,3 +8,5 @@ app.use(express.json())
 app.use('', router)
 
 app.listen(8000, () => console.log('API running at localhost:8000'))
+
+export default app
