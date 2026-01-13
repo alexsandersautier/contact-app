@@ -24,7 +24,7 @@ function handleClickDelete(id, name) {
 }
 
 async function deleteContact() {
-    const response = await axios.delete(import.meta.env.VITE_URL_API + 'api/v1/contacts/' + idDelete.value, {
+    const response = await axios.delete(import.meta.env.VITE_URL_API + 'contacts/' + idDelete.value, {
         headers: { 'Authorization': localStorage.getItem('token') }
     })
     showModal.value = !showModal.value

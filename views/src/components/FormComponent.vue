@@ -37,13 +37,13 @@ async function handleSubmit() {
   data.append('email', formData.value.email)
   data.append('image', formData.value.picture)
   if (!editing.value) {
-    await axios.post(import.meta.env.VITE_URL_API + 'api/v1/contacts', data, {
+    await axios.post(import.meta.env.VITE_URL_API + 'contacts', data, {
       headers: { 'Content-Type': 'multipart/form-data', 'Authorization': localStorage.getItem('token') }
     })
   } else {
     if (!formData.value.picture) formData.delete('image')
 
-    await axios.put(import.meta.env.VITE_URL_API + 'api/v1/contacts/' + currentID, data, {
+    await axios.put(import.meta.env.VITE_URL_API + 'contacts/' + currentID, data, {
       headers: { 'Content-Type': 'multipart/form-data', 'Authorization': localStorage.getItem('token') }
     })
   }
@@ -57,7 +57,7 @@ onMounted(async () => {
   if (id) {
     editing.value = true
     currentID.value = id
-    const response = await axios.get(import.meta.env.VITE_URL_API + `api/v1/contacts/${id}`, {
+    const response = await axios.get(import.meta.env.VITE_URL_API + `contacts/${id}`, {
       headers: { 'Authorization': localStorage.getItem('token') }
     })
     formData.value = { ...response.data }
