@@ -15,16 +15,16 @@ export function contactController() {
                     picture: picture
                 }
             })
-    
+
             res.status(200).json(contacts)
         } catch (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal error' })
         }
     }
-    
+
     async function getById(req, res) {
-    
+
         try {
             const id = req.params.id
             const register = await model.getById(id)
@@ -39,88 +39,100 @@ export function contactController() {
             } else {
                 res.status(404).json({ message: 'Contact not found' })
             }
-    
+
         } catch (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal error' })
         }
     }
-    
+
     async function create(req, res) {
-    
+
         try {
             const { contact, name, email } = req.body
-    
+
+            if (!name || name.length <= 5) {
+                return res.status(400).json({ message: 'The field "Name" should be longer than 5 characters' })
+            }
+
+            if (!contact || contact.length !== 9) {
+                return res.status(400).json({ message: 'The field "Contact" should have exactly 9 characters' })
+            }
+
+            if (!email) {
+                return res.status(400).json({ message: 'The field "Email" is required' })
+            }
+
             const contactByContact = await model.getByContact(contact)
-    
+
             if (contactByContact.length > 0) {
                 res.status(400).json({ message: 'Already exists an register with this contact' })
                 return
             }
-    
+
             const contactByEmail = await model.getByEmail(email)
-    
+
             if (contactByEmail.length > 0) {
                 res.status(400).json({ message: 'Already exists an register with this email' })
                 return
             }
-    
+
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
             if (!emailRegex.test(email)) {
-                return res.status(400).json({ error: 'Invalid email' })
+                return res.status(400).json({ message: 'Invalid email' })
             }
-    
+
             const file = req.file
-    
-            if (!file) return res.status(400).json({ error: 'No file' })
-    
+
+            if (!file) return res.status(400).json({ message: 'No file' })
+
             const picture = file.buffer
-    
+
             const newContact = {
                 contact, name, email, picture
             }
-    
+
             const id = await model.create(newContact)
-    
+
             res.status(201).json({
                 message: 'Contact cretead',
                 id: id
             })
-    
+
         } catch (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal error' })
         }
     }
-    
+
     async function update(req, res) {
         try {
             const id = req.params.id
             const existing = await model.getById(id)
-    
+
             if (existing.length === 0)
                 return res.status(404).json({ message: 'Contact not found' })
-    
+
             let payload = { ...req.body }
-    
+
             if (req.file) {
                 payload.picture = req.file.buffer
             }
-    
+
             if (Object.keys(payload).length === 0)
                 return res.status(400).json({ error: 'Nothing to update' })
-    
+
             await model.update(id, payload)
-    
+
             res.status(200).json({ message: 'Contact updated' })
-    
-    
+
+
         } catch (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal error' })
         }
     }
-    
+
     async function remove(req, res) {
         try {
             const id = req.params.id
