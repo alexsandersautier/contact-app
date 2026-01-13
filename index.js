@@ -7,6 +7,10 @@ app.use(cors())
 app.use(express.json())
 app.use('', router)
 
-app.listen(8000, () => console.log('API running at localhost:8000'))
+const PORT = process.env.PORT || 8000
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 API running on port ${PORT}`)
+})
 
 export default app
