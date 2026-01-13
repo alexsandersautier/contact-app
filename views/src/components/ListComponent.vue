@@ -36,11 +36,12 @@ onMounted(() => getData())
 </script>
 
 <template>
-    <section class="flex gap-4 flex-wrap">
+    <section class="flex gap-4 flex-wrap justify-center items-center">
         <CardComponent 
             v-for="contact in contacts" 
             :key="contact.id" 
             :id="contact.id"
+            :contact="contact.contact"
             :name="contact.name" 
             :email="contact.email"
             :picture="contact.picture"

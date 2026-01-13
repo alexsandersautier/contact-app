@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 
 const props = defineProps({
     id: Number,
+    contact: String,
     name: String,
     email: String,
     picture: String
@@ -30,6 +31,7 @@ async function handleDetails() {
     <div class="card-body">
       <h2 class="card-title">{{ name }}</h2>
       <p>{{ email }}</p>
+      <div class="badge badge-info">{{ contact }}</div>
       <div class="card-actions justify-end">
         <button class="btn btn-primary" @click="handleDetails">See Details</button>
         <button class="btn btn-error" @click="emit('delete')">Delete</button>
